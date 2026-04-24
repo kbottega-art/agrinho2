@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Calculadora de Carbono Agro | Pegada de Carbono no Campo</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Fonte profissional -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <!-- Ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+
+<div class="app-container">
+    <!-- CABEÇALHO -->
+    <header>
+        <div class="logo-area">
+            <i class="fas fa-leaf"></i>
+            <h1>Calculadora de Carbono Agro</h1>
+        </div>
+        <p class="subhead">Estime as emissões da sua propriedade e receba diagnóstico inteligente do solo</p>
+    </header>
+
+    <!-- ÁREA PRINCIPAL: FORMULÁRIO + RESULTADOS/IA -->
+    <div class="main-grid">
+        <!-- COLUDA ESQUERDA: FORMULÁRIO -->
+        <div class="form-card">
+            <h2><i class="fas fa-tractor"></i> Dados da Propriedade</h2>
+            <form id="carbonForm">
+                <!-- Localização e área -->
+                <div class="form-group">
+                    <label><i class="fas fa-map-marker-alt"></i> Estado / Bioma predominante</label>
+                    <select id="bioma">
+                        <option value="cerrado">Cerrado</option>
+                        <option value="amazonia">Amazônia</option>
+                        <option value="mata_atlantica">Mata Atlântica</option>
+                        <option value="pampa">Pampa</option>
+                        <option value="pantanal">Pantanal</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label><i class="fas fa-chart-line"></i> Área total (hectares)</label>
+                    <input type="number" id="area" step="0.1" placeholder="Ex: 120" required>
+                </div>
+
+                <div class="form-group">
+                    <label><i class="fas fa-cow"></i> Tipo de atividade principal</label>
+                    <select id="atividade">
+                        <option value="pecuaria_corte">Pecuária de Corte</option>
+                        <option value="pecuaria_leite">Pecuária de Leite</option>
+                        <option value="lavoura">Lavoura (soja/milho/cana)</option>
+                        <option value="ilpf">Integração Lavoura-Pecuária-Floresta (ILPF)</option>
+                    </select>
+                </div>
+
+                <!-- pecuária -->
+                <div id="pecuariaBlock" class="conditional-block">
+                    <div class="form-group">
+                        <label><i class="fas fa-tag"></i> Nº cabeças de gado (UA)</label>
+                        <input type="number" id="cabecas" step="1" value="0">
+                    </div>
+                    <div class="form-group">
+                        <label>Manejo do pasto</label>
+                        <select id="manejoPasto">
+                            <option value="degradado">Pasto degradado (alta emissão)</option>
+                            <option value="recuperado">Pasto recuperado / rotacionado</option>
+                            <option value="silvipastoril">Sistema silvipastoril (com árvores)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- lavoura -->
+                <div id="lavouraBlock" class="conditional-block">
+                    <div class="form-group">
+                        <label><i class="fas fa-seedling"></i> Área plantada (ha)</label>
+                        <input type="number" id="areaPlantada" step="0.1" value="0">
+                    </div>
+                    <div class="form-group">
+                        <label>Sistema de cultivo</label>
+                        <select id="sistemaCultivo">
+                            <option value="convencional">Convencional (preparo intenso)</option>
+                            <option value="plantio_direto">Plantio Direto (baixa emissão)</option>
+                            <option value="organico">Orgânico / Agroecológico</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- insumos adicionais -->
+                <div class="form-group">
+                    <label><i class="fas fa-flask"></i> Uso de fertilizante nitrogenado (kg/ano)</label>
+                    <input type="number" id="fertilizante" step="50" value="0" placeholder="0 = não utiliza">
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-biohazard"></i> Tratamento de dejetos animais?</label>
+                    <select id="tratamentoDejetos">
+                        <option value="nenhum">Nenhum / lagoa aberta</option>
+                        <option value="biodigestor">Biodigestor</option>
+                        <option value="compostagem">Compostagem</option>
+                    </select>
+                </div>
+
+                <!-- práticas sustentáveis -->
+                <div class="form-group check-group">
+                    <label><i class="fas fa-check-circle"></i> Práticas sustentáveis adotadas:</label>
+                    <label><input type="checkbox" id="praticaRecuperacao"> Recuperação de pastagens</label>
+                    <label><input type="checkbox" id="praticaILPF"> ILPF implementada</label>
+                    <label><input type="checkbox" id="praticaEnergiaSolar"> Energia solar na fazenda</label>
+                    <label><input type="checkbox" id="praticaBioinsumos"> Bioinsumos / fixação biológica</label>
+                </div>
+
+                <button type="button" id="calcularBtn"><i class="fas fa-calculator"></i> Calcular pegada + IA do solo</button>
+            </form>
+        </div>
+
+        <!-- COLUDA DIREITA: RESULTADOS E IA -->
+        <div class="results-card">
+            <div class="tab-buttons">
+                <button class="tab-btn active" data-tab="tabResultado">📊 Resultados de Carbono</button>
+                <button class="tab-btn" data-tab="tabIA">🧠 Diagnóstico IA do Solo</button>
+            </div>
+
+            <!-- Aba Resultado -->
+            <div id="tabResultado" class="tab-content active">
+                <div class="result-placeholder" id="resultadoPlaceholder">
+                    <i class="fas fa-chart-simple"></i>
+                    <p>Preencha os dados e clique em "Calcular"</p>
+                </div>
+                <div id="resultadoDetalhado" style="display:none;">
+                    <div class="metric-card">
+                        <span>Emissão total estimada</span>
+                        <strong id="valorEmissao">0</strong>
+                        <small>t CO₂e / ano</small>
+                    </div>
+                    <div class="metric-card">
+                        <span>Emissão por hectare</span>
+                        <strong id="emisPorHa">0</strong>
+                        <small>t CO₂e/ha/ano</small>
+                    </div>
+                    <div class="progress-area">
+                        <label>Comparativo com média regional:</label>
+                        <div class="progress-bar"><div id="progressFill" style="width:0%"></div></div>
+                        <span id="statusComparativo">--</span>
+                    </div>
+                    <div class="breakdown">
+                        <p><i class="fas fa-chart-pie"></i> Principais fontes:</p>
+                        <ul id="listaFontes"></ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Aba IA: análise do solo e recomendações -->
+            <div id="tabIA" class="tab-content">
+                <div class="ia-message-area" id="iaMessage">
+                    <i class="fas fa-brain"></i>
+                    <p>Nenhuma análise ainda. Calcule a propriedade primeiro.</p>
+                </div>
+                <div id="iaRecomendacoes" style="display:none;">
+                    <div class="ia-header">
+                        <i class="fas fa-microchip"></i> <strong>Análise Inteligente (baseada nos indicadores)</strong>
+                    </div>
+                    <div class="ia-solo-status" id="iaSoloStatus"></div>
+                    <div class="ia-diagnostico" id="iaDiagnostico"></div>
+                    <div class="ia-melhoria" id="iaMelhoria"></div>
+                    <div class="ia-sugestoes-box" id="iaSugestoesBox"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>🔬 Fatores de emissão baseados em IPCC e dados da Embrapa. A IA considera indicadores de saúde do solo, carbono orgânico e práticas agrícolas.</p>
+    </footer>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
