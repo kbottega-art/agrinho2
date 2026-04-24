@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Calculadora de Carbono Agro | Sustentabilidade na Agropecuária</title>
+    <meta name="description" content="Calcule as emissões de carbono da sua propriedade rural e descubra como práticas sustentáveis podem reduzir seu impacto ambiental e gerar economia.">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <div class="logo">
+            <i class="fas fa-leaf"></i>
+            <h1>Calculadora <span>Carbono Agro</span></h1>
+        </div>
+        <p class="tagline">Estime a pegada de carbono da sua fazenda e descubra o potencial de redução com práticas sustentáveis</p>
+    </header>
+
+    <div class="progress-bar-container">
+        <div class="progress-steps">
+            <div class="step active" data-step="1">1. Dados gerais</div>
+            <div class="step" data-step="2">2. Pecuária</div>
+            <div class="step" data-step="3">3. Lavoura</div>
+            <div class="step" data-step="4">4. Insumos + dejetos</div>
+            <div class="step" data-step="5">5. Resultado 🌿</div>
+        </div>
+    </div>
+
+    <form id="carbonForm">
+        <!-- ETAPA 1 - DADOS GERAIS -->
+        <div id="step1" class="form-step active-step">
+            <h2><i class="fas fa-tractor"></i> Dados gerais da propriedade</h2>
+            <div class="form-group">
+                <label>Estado:</label>
+                <select id="estado" required>
+                    <option value="">Selecione</option>
+                    <option value="AC">Acre</option><option value="AL">Alagoas</option><option value="AP">Amapá</option>
+                    <option value="AM">Amazonas</option><option value="BA">Bahia</option><option value="CE">Ceará</option>
+                    <option value="DF">Distrito Federal</option><option value="ES">Espírito Santo</option><option value="GO">Goiás</option>
+                    <option value="MA">Maranhão</option><option value="MT">Mato Grosso</option><option value="MS">Mato Grosso do Sul</option>
+                    <option value="MG">Minas Gerais</option><option value="PA">Pará</option><option value="PB">Paraíba</option>
+                    <option value="PR">Paraná</option><option value="PE">Pernambuco</option><option value="PI">Piauí</option>
+                    <option value="RJ">Rio de Janeiro</option><option value="RN">Rio Grande do Norte</option>
+                    <option value="RS">Rio Grande do Sul</option><option value="RO">Rondônia</option><option value="RR">Roraima</option>
+                    <option value="SC">Santa Catarina</option><option value="SP">São Paulo</option><option value="SE">Sergipe</option>
+                    <option value="TO">Tocantins</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Área total da fazenda (hectares):</label>
+                <input type="number" id="areaTotal" step="0.1" placeholder="Ex: 250" required>
+            </div>
+            <div class="form-group">
+                <label>Tipo principal de atividade:</label>
+                <select id="tipoAtividade" required>
+                    <option value="">Selecione</option>
+                    <option value="pecuariaCorte">Pecuária de corte</option>
+                    <option value="pecuariaLeite">Pecuária de leite</option>
+                    <option value="lavoura">Lavoura (grãos/cana)</option>
+                    <option value="integracao">Integração Lavoura-Pecuária-Floresta (ILPF)</option>
+                </select>
+            </div>
+            <div class="button-group">
+                <button type="button" class="next-btn" data-next="2">Próximo →</button>
+            </div>
+        </div>
+
+        <!-- ETAPA 2 - PECUÁRIA -->
+        <div id="step2" class="form-step">
+            <h2><i class="fas fa-cow"></i> Dados da pecuária</h2>
+            <div class="form-group">
+                <label>Número de cabeças de gado (apenas se tiver):</label>
+                <input type="number" id="numeroCabecas" step="1" value="0" min="0">
+            </div>
+            <div class="form-group">
+                <label>Manejo predominante:</label>
+                <select id="manejoPecuaria">
+                    <option value="pastoDegradado">Pasto degradado (alta emissão)</option>
+                    <option value="pastoRecuperado">Pasto recuperado / rotacionado</option>
+                    <option value="confinamento">Confinamento (dejetos concentrados)</option>
+                    <option value="silvipastoril">Sistema silvipastoril (com árvores)</option>
+                </select>
+            </div>
+            <div class="button-group">
+                <button type="button" class="prev-btn" data-prev="1">← Voltar</button>
+                <button type="button" class="next-btn" data-next="3">Próximo →</button>
+            </div>
+        </div>
+
+        <!-- ETAPA 3 - LAVOURA -->
+        <div id="step3" class="form-step">
+            <h2><i class="fas fa-seedling"></i> Dados da lavoura</h2>
+            <div class="form-group">
+                <label>Área plantada (hectares):</label>
+                <input type="number" id="areaPlantada" step="0.1" value="0" min="0">
+            </div>
+            <div class="form-group">
+                <label>Sistema de cultivo:</label>
+                <select id="sistemaCultivo">
+                    <option value="plantioDireto">Plantio direto (baixa emissão)</option>
+                    <option value="convencional">Preparo convencional (arado/grades)</option>
+                    <option value="organico">Orgânico com adubação verde</option>
+                </select>
+            </div>
+            <div class="button-group">
+                <button type="button" class="prev-btn" data-prev="2">← Voltar</button>
+                <button type="button" class="next-btn" data-next="4">Próximo →</button>
+            </div>
+        </div>
+
+        <!-- ETAPA 4 - INSUMOS + DEJETOS e PRÁTICAS -->
+        <div id="step4" class="form-step">
+            <h2><i class="fas fa-flask"></i> Insumos, dejetos e práticas sustentáveis</h2>
+            <div class="form-group">
+                <label>Uso de fertilizante nitrogenado sintético (kg/ano):</label>
+                <input type="number" id="nitrogenioKg" step="100" value="0" min="0">
+                <small>Aproximado: 100 kg/ha/ano para milho; soja quase zero.</small>
+            </div>
+            <div class="form-group">
+                <label>Tratamento de dejetos animais:</label>
+                <select id="tratamentoDejetos">
+                    <option value="nenhum">Sem tratamento / lagoa aberta</option>
+                    <option value="biodigestor">Biodigestor (reduz metano)</option>
+                    <option value="compostagem">Compostagem</option>
+                </select>
+            </div>
+            <div class="checkbox-group">
+                <p><strong>Práticas sustentáveis que você já adota (ou adotaria):</strong></p>
+                <label><input type="checkbox" id="praticaRecuperacaoPastagem"> Recuperação de pastagens degradadas</label>
+                <label><input type="checkbox" id="praticaIlpf"> Integração Lavoura-Pecuária-Floresta (ILPF)</label>
+                <label><input type="checkbox" id="praticaReflorestamento"> APP reflorestado / corredor ecológico</label>
+                <label><input type="checkbox" id="praticaBioinsumos"> Uso de bioinsumos (inoculantes, fixação N)</label>
+            </div>
+            <div class="button-group">
+                <button type="button" class="prev-btn" data-prev="3">← Voltar</button>
+                <button type="button" id="calcularBtn">Calcular emissões →</button>
+            </div>
+        </div>
+
+        <!-- ETAPA 5 - RESULTADO -->
+        <div id="step5" class="form-step">
+            <div id="resultadoArea">
+                <!-- Conteúdo preenchido via JS -->
+                <div class="loading" style="display: none;">Calculando...</div>
+                <div class="resultado-final"></div>
+            </div>
+            <div class="button-group">
+                <button type="button" id="refazerBtn" class="refazer-btn"><i class="fas fa-redo-alt"></i> Nova simulação</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
