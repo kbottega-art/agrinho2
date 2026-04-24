@@ -2,159 +2,263 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Calculadora de Carbono Agro | Sustentabilidade na Agropecuária</title>
-    <meta name="description" content="Calcule as emissões de carbono da sua propriedade rural e descubra como práticas sustentáveis podem reduzir seu impacto ambiental e gerar economia.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Carbono Agro | Agricultura Sustentável</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-
-<div class="container">
-    <header>
-        <div class="logo">
-            <i class="fas fa-leaf"></i>
-            <h1>Calculadora <span>Carbono Agro</span></h1>
+    <!-- Header/Navbar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <i class="fas fa-leaf"></i>
+                <span>Carbon<span class="highlight">Agro</span></span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#" class="active">Calculadora</a></li>
+                <li><a href="#">Sobre</a></li>
+                <li><a href="#">Método</a></li>
+                <li><a href="#">Contato</a></li>
+            </ul>
         </div>
-        <p class="tagline">Estime a pegada de carbono da sua fazenda e descubra o potencial de redução com práticas sustentáveis</p>
-    </header>
+    </nav>
 
-    <div class="progress-bar-container">
-        <div class="progress-steps">
-            <div class="step active" data-step="1">1. Dados gerais</div>
-            <div class="step" data-step="2">2. Pecuária</div>
-            <div class="step" data-step="3">3. Lavoura</div>
-            <div class="step" data-step="4">4. Insumos + dejetos</div>
-            <div class="step" data-step="5">5. Resultado 🌿</div>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Calcule a Pegada de Carbono<span> da sua Propriedade Rural</span></h1>
+            <p>Ferramenta avançada para medição de emissões agropecuárias com análise integrada de solo e recomendações sustentáveis</p>
+            <div class="hero-badges">
+                <span><i class="fas fa-check-circle"></i> Metodologia IPCC</span>
+                <span><i class="fas fa-check-circle"></i> Dados Embrapa</span>
+                <span><i class="fas fa-check-circle"></i> IA Aplicada</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Calculator Container -->
+    <div class="calculator-container">
+        <div class="container">
+            <div class="calculator-header">
+                <h2><i class="fas fa-chart-line"></i> Diagnóstico de Emissões</h2>
+                <p>Preencha os dados da sua propriedade para obter uma análise precisa da pegada de carbono e recomendações inteligentes</p>
+            </div>
+
+            <form id="carbonForm">
+                <!-- Etapa 1: Dados Gerais -->
+                <div class="form-section">
+                    <div class="section-title">
+                        <i class="fas fa-tractor"></i>
+                        <h3>Dados da Propriedade</h3>
+                    </div>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label><i class="fas fa-map-marker-alt"></i> Localização</label>
+                            <select id="bioma" required>
+                                <option value="">Selecione o bioma</option>
+                                <option value="amazonia">Amazônia</option>
+                                <option value="cerrado">Cerrado</option>
+                                <option value="mata_atlantica">Mata Atlântica</option>
+                                <option value="pampa">Pampa</option>
+                                <option value="pantanal">Pantanal</option>
+                                <option value="caatinga">Caatinga</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label><i class="fas fa-chart-pie"></i> Área Total (hectares)</label>
+                            <input type="number" id="area" step="0.1" min="0" required placeholder="Ex: 100">
+                        </div>
+                        <div class="form-group">
+                            <label><i class="fas fa-industry"></i> Atividade Principal</label>
+                            <select id="atividade" required>
+                                <option value="">Selecione</option>
+                                <option value="pecuaria_corte">Pecuária de Corte</option>
+                                <option value="pecuaria_leite">Pecuária de Leite</option>
+                                <option value="lavoura">Lavoura (Grãos)</option>
+                                <option value="integracao">Integração Lavoura-Pecuária (ILP)</option>
+                                <option value="silvipastoril">Sistema Silvipastoril (ILPF)</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Etapa 2: Pecuária -->
+                <div class="form-section">
+                    <div class="section-title">
+                        <i class="fas fa-paw"></i>
+                        <h3>Informações da Pecuária</h3>
+                    </div>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label><i class="fas fa-cow"></i> Número de Cabeças</label>
+                            <input type="number" id="cabecas" step="1" min="0" value="0" placeholder="0">
+                        </div>
+                        <div class="form-group">
+                            <label><i class="fas fa-chart-line"></i> Manejo do Pasto</label>
+                            <select id="manejoPasto">
+                                <option value="degradado">Pasto Degradado (Alta emissão)</option>
+                                <option value="recuperado">Pasto Recuperado/Manejo Rotacionado</option>
+                                <option value="confinado">Confinamento/Feedlot</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Etapa 3: Lavoura e Insumos -->
+                <div class="form-section">
+                    <div class="section-title">
+                        <i class="fas fa-seedling"></i>
+                        <h3>Lavoura e Insumos</h3>
+                    </div>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label><i class="fas fa-flask"></i> Fertilizantes Nitrogenados (kg/ano)</label>
+                            <input type="number" id="fertilizante" step="100" min="0" value="0" placeholder="Ex: 5000">
+                        </div>
+                        <div class="form-group">
+                            <label><i class="fas fa-oil-can"></i> Consumo de Diesel (L/ano)</label>
+                            <input type="number" id="diesel" step="500" min="0" value="0" placeholder="Ex: 10000">
+                        </div>
+                        <div class="form-group">
+                            <label><i class="fas fa-leaf"></i> Sistema de Cultivo</label>
+                            <select id="sistemaCultivo">
+                                <option value="convencional">Preparo Convencional (Alta emissão)</option>
+                                <option value="plantio_direto">Plantio Direto (Baixa emissão)</option>
+                                <option value="organico">Orgânico com Adubação Verde</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Etapa 4: Práticas Sustentáveis -->
+                <div class="form-section">
+                    <div class="section-title">
+                        <i class="fas fa-recycle"></i>
+                        <h3>Práticas Sustentáveis Adotadas</h3>
+                    </div>
+                    <div class="checkbox-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="ilpf">
+                            <span class="checkmark"></span>
+                            Integração Lavoura-Pecuária-Floresta (ILPF)
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="biodigestor">
+                            <span class="checkmark"></span>
+                            Biodigestor para tratamento de dejetos
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="bioinsumos">
+                            <span class="checkmark"></span>
+                            Uso de bioinsumos (fixadores de nitrogênio)
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="energia_solar">
+                            <span class="checkmark"></span>
+                            Energia solar na propriedade
+                        </label>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-calculate">
+                    <i class="fas fa-calculator"></i> Calcular Pegada de Carbono
+                </button>
+            </form>
+
+            <!-- Results Section -->
+            <div id="results" class="results" style="display: none;">
+                <div class="results-header">
+                    <i class="fas fa-chart-pie"></i>
+                    <h2>Diagnóstico Ambiental</h2>
+                </div>
+                
+                <div class="results-grid">
+                    <div class="result-card">
+                        <div class="result-icon">
+                            <i class="fas fa-cloud"></i>
+                        </div>
+                        <div class="result-info">
+                            <h4>Emissões Totais</h4>
+                            <div class="result-value" id="totalEmissao">0</div>
+                            <span>ton CO₂e/ano</span>
+                        </div>
+                    </div>
+
+                    <div class="result-card">
+                        <div class="result-icon">
+                            <i class="fas fa-car"></i>
+                        </div>
+                        <div class="result-info">
+                            <h4>Equivalente a</h4>
+                            <div class="result-value" id="equivalenteCarros">0</div>
+                            <span>carros/ano</span>
+                        </div>
+                    </div>
+
+                    <div class="result-card">
+                        <div class="result-icon">
+                            <i class="fas fa-tree"></i>
+                        </div>
+                        <div class="result-info">
+                            <h4>Árvores para Compensar</h4>
+                            <div class="result-value" id="arvoresCompensar">0</div>
+                            <span>árvores/ano</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- IA Analysis Section -->
+                <div class="ia-analysis">
+                    <div class="ia-header">
+                        <i class="fas fa-robot"></i>
+                        <h3>Inteligência Artificial: Análise do Solo</h3>
+                    </div>
+                    <div id="iaContent" class="ia-content">
+                        <!-- Análise gerada pela IA será inserida aqui -->
+                    </div>
+                </div>
+
+                <!-- Recommendations -->
+                <div class="recommendations">
+                    <div class="rec-header">
+                        <i class="fas fa-lightbulb"></i>
+                        <h3>Potencial de Redução</h3>
+                    </div>
+                    <div id="recomendacoes" class="rec-content"></div>
+                </div>
+
+                <button id="resetBtn" class="btn-reset">
+                    <i class="fas fa-redo-alt"></i> Nova Análise
+                </button>
+            </div>
         </div>
     </div>
 
-    <form id="carbonForm">
-        <!-- ETAPA 1 - DADOS GERAIS -->
-        <div id="step1" class="form-step active-step">
-            <h2><i class="fas fa-tractor"></i> Dados gerais da propriedade</h2>
-            <div class="form-group">
-                <label>Estado:</label>
-                <select id="estado" required>
-                    <option value="">Selecione</option>
-                    <option value="AC">Acre</option><option value="AL">Alagoas</option><option value="AP">Amapá</option>
-                    <option value="AM">Amazonas</option><option value="BA">Bahia</option><option value="CE">Ceará</option>
-                    <option value="DF">Distrito Federal</option><option value="ES">Espírito Santo</option><option value="GO">Goiás</option>
-                    <option value="MA">Maranhão</option><option value="MT">Mato Grosso</option><option value="MS">Mato Grosso do Sul</option>
-                    <option value="MG">Minas Gerais</option><option value="PA">Pará</option><option value="PB">Paraíba</option>
-                    <option value="PR">Paraná</option><option value="PE">Pernambuco</option><option value="PI">Piauí</option>
-                    <option value="RJ">Rio de Janeiro</option><option value="RN">Rio Grande do Norte</option>
-                    <option value="RS">Rio Grande do Sul</option><option value="RO">Rondônia</option><option value="RR">Roraima</option>
-                    <option value="SC">Santa Catarina</option><option value="SP">São Paulo</option><option value="SE">Sergipe</option>
-                    <option value="TO">Tocantins</option>
-                </select>
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4><i class="fas fa-leaf"></i> CarbonAgro</h4>
+                    <p>Tecnologia para agricultura sustentável e neutralidade climática no campo brasileiro.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Metodologia</h4>
+                    <p>IPCC Nível 2<br>Dados Embrapa 2024<br>Painel Brasileiro de Mudanças Climáticas</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Contato</h4>
+                    <p><i class="fas fa-envelope"></i> contato@carbonagro.com.br<br><i class="fas fa-phone"></i> (11) 99999-9999</p>
+                </div>
             </div>
-            <div class="form-group">
-                <label>Área total da fazenda (hectares):</label>
-                <input type="number" id="areaTotal" step="0.1" placeholder="Ex: 250" required>
-            </div>
-            <div class="form-group">
-                <label>Tipo principal de atividade:</label>
-                <select id="tipoAtividade" required>
-                    <option value="">Selecione</option>
-                    <option value="pecuariaCorte">Pecuária de corte</option>
-                    <option value="pecuariaLeite">Pecuária de leite</option>
-                    <option value="lavoura">Lavoura (grãos/cana)</option>
-                    <option value="integracao">Integração Lavoura-Pecuária-Floresta (ILPF)</option>
-                </select>
-            </div>
-            <div class="button-group">
-                <button type="button" class="next-btn" data-next="2">Próximo →</button>
+            <div class="footer-bottom">
+                <p>&copy; 2024 CarbonAgro - Calculadora de Carbono Agropecuária. Todos os direitos reservados.</p>
             </div>
         </div>
+    </footer>
 
-        <!-- ETAPA 2 - PECUÁRIA -->
-        <div id="step2" class="form-step">
-            <h2><i class="fas fa-cow"></i> Dados da pecuária</h2>
-            <div class="form-group">
-                <label>Número de cabeças de gado (apenas se tiver):</label>
-                <input type="number" id="numeroCabecas" step="1" value="0" min="0">
-            </div>
-            <div class="form-group">
-                <label>Manejo predominante:</label>
-                <select id="manejoPecuaria">
-                    <option value="pastoDegradado">Pasto degradado (alta emissão)</option>
-                    <option value="pastoRecuperado">Pasto recuperado / rotacionado</option>
-                    <option value="confinamento">Confinamento (dejetos concentrados)</option>
-                    <option value="silvipastoril">Sistema silvipastoril (com árvores)</option>
-                </select>
-            </div>
-            <div class="button-group">
-                <button type="button" class="prev-btn" data-prev="1">← Voltar</button>
-                <button type="button" class="next-btn" data-next="3">Próximo →</button>
-            </div>
-        </div>
-
-        <!-- ETAPA 3 - LAVOURA -->
-        <div id="step3" class="form-step">
-            <h2><i class="fas fa-seedling"></i> Dados da lavoura</h2>
-            <div class="form-group">
-                <label>Área plantada (hectares):</label>
-                <input type="number" id="areaPlantada" step="0.1" value="0" min="0">
-            </div>
-            <div class="form-group">
-                <label>Sistema de cultivo:</label>
-                <select id="sistemaCultivo">
-                    <option value="plantioDireto">Plantio direto (baixa emissão)</option>
-                    <option value="convencional">Preparo convencional (arado/grades)</option>
-                    <option value="organico">Orgânico com adubação verde</option>
-                </select>
-            </div>
-            <div class="button-group">
-                <button type="button" class="prev-btn" data-prev="2">← Voltar</button>
-                <button type="button" class="next-btn" data-next="4">Próximo →</button>
-            </div>
-        </div>
-
-        <!-- ETAPA 4 - INSUMOS + DEJETOS e PRÁTICAS -->
-        <div id="step4" class="form-step">
-            <h2><i class="fas fa-flask"></i> Insumos, dejetos e práticas sustentáveis</h2>
-            <div class="form-group">
-                <label>Uso de fertilizante nitrogenado sintético (kg/ano):</label>
-                <input type="number" id="nitrogenioKg" step="100" value="0" min="0">
-                <small>Aproximado: 100 kg/ha/ano para milho; soja quase zero.</small>
-            </div>
-            <div class="form-group">
-                <label>Tratamento de dejetos animais:</label>
-                <select id="tratamentoDejetos">
-                    <option value="nenhum">Sem tratamento / lagoa aberta</option>
-                    <option value="biodigestor">Biodigestor (reduz metano)</option>
-                    <option value="compostagem">Compostagem</option>
-                </select>
-            </div>
-            <div class="checkbox-group">
-                <p><strong>Práticas sustentáveis que você já adota (ou adotaria):</strong></p>
-                <label><input type="checkbox" id="praticaRecuperacaoPastagem"> Recuperação de pastagens degradadas</label>
-                <label><input type="checkbox" id="praticaIlpf"> Integração Lavoura-Pecuária-Floresta (ILPF)</label>
-                <label><input type="checkbox" id="praticaReflorestamento"> APP reflorestado / corredor ecológico</label>
-                <label><input type="checkbox" id="praticaBioinsumos"> Uso de bioinsumos (inoculantes, fixação N)</label>
-            </div>
-            <div class="button-group">
-                <button type="button" class="prev-btn" data-prev="3">← Voltar</button>
-                <button type="button" id="calcularBtn">Calcular emissões →</button>
-            </div>
-        </div>
-
-        <!-- ETAPA 5 - RESULTADO -->
-        <div id="step5" class="form-step">
-            <div id="resultadoArea">
-                <!-- Conteúdo preenchido via JS -->
-                <div class="loading" style="display: none;">Calculando...</div>
-                <div class="resultado-final"></div>
-            </div>
-            <div class="button-group">
-                <button type="button" id="refazerBtn" class="refazer-btn"><i class="fas fa-redo-alt"></i> Nova simulação</button>
-            </div>
-        </div>
-    </form>
-</div>
-
-<script src="script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
