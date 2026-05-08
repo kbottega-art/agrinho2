@@ -123,15 +123,15 @@ document.addEventListener('DOMContentLoaded', function () {
         
         // Análise solo baseado em emissões por ha
         if (haArea < 2.5) {
-            status = '🌱 Saúde do solo: BOA (baixa pegada, carbono retido no solo)';
+            status = ' Saúde do solo: BOA (baixa pegada, carbono retido no solo)';
             diagnostico = 'Indicadores mostram que seu solo mantém bom nível de matéria orgânica e provavelmente há sequestro de carbono.';
             melhorias = 'Manter práticas de plantio direto e/ou integração. Potencial para créditos de carbono.';
         } else if (haArea < 5) {
-            status = '⚠️ Saúde do solo: REGULAR (emissões moderadas)';
+            status = ' Saúde do solo: REGULAR (emissões moderadas)';
             diagnostico = 'Há perda de carbono orgânico em taxas médias. Solo ainda produtivo, mas há desgaste.';
             melhorias = 'Introduzir rotação de culturas e cultivo de cobertura. Reduza o uso de nitrogênio sintético.';
         } else {
-            status = '🔴 Saúde do solo: CRÍTICA / DEGRADADO';
+            status = ' Saúde do solo: CRÍTICA / DEGRADADO';
             diagnostico = 'Alta emissão de GEE, baixo carbono orgânico, solo compactado e baixa fertilidade biológica.';
             melhorias = 'Parar desmatamento, iniciar recuperação com integração lavoura-pecuária, adubação verde e bioinsumos.';
         }
@@ -173,10 +173,10 @@ document.addEventListener('DOMContentLoaded', function () {
         iaDiv.style.display = 'none';
         iaRecomDiv.style.display = 'block';
         document.getElementById('iaSoloStatus').innerHTML = iaData.statusText;
-        document.getElementById('iaDiagnostico').innerHTML = `<strong>🧪 Diagnóstico:</strong> ${iaData.diagnostico}`;
-        document.getElementById('iaMelhoria').innerHTML = `<strong>📈 Recomendação principal:</strong> ${iaData.melhorias}`;
+        document.getElementById('iaDiagnostico').innerHTML = `<strong> Diagnóstico:</strong> ${iaData.diagnostico}`;
+        document.getElementById('iaMelhoria').innerHTML = `<strong> Recomendação principal:</strong> ${iaData.melhorias}`;
         const sugestBox = document.getElementById('iaSugestoesBox');
-        sugestBox.innerHTML = '<strong>🔧 Sugestões práticas IA:</strong><ul>' + iaData.sugestoes.map(s => `<li>✅ ${s}</li>`).join('') + '</ul>';
+        sugestBox.innerHTML = '<strong>🔧 Sugestões práticas IA:</strong><ul>' + iaData.sugestoes.map(s => `<li> ${s}</li>`).join('') + '</ul>';
     }
     
     calcularBtn.addEventListener('click', atualizarUI);
